@@ -5,9 +5,7 @@ image and returns the top-5 classification labels and scores.
 import importlib
 import json
 import logging
-import os
 import torch
-from PIL import Image
 from app.utils import get_filename
 
 from torchvision import transforms

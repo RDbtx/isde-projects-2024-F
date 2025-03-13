@@ -1,5 +1,4 @@
 import os
-
 from app.config import Configuration
 from PIL import Image, ImageEnhance
 import asyncio

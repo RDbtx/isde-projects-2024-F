@@ -1,6 +1,4 @@
 from fastapi import Request, UploadFile
-
-from fastapi import Request, UploadFile
 from typing import Optional
 
 
@@ -62,6 +60,7 @@ class EditedImageForm:
         form = await self.request.form()
         self.model_id = form.get("model_id")
         self.image_id = form.get("image_id")
+
         self.color_value = int(form.get("color_value", 0))
         self.brightness_value = int(form.get("brightness_value", 0))
         self.contrast_value = int(form.get("contrast_value", 0))
@@ -147,39 +146,13 @@ class UploadedImageForm:
             form = await self.request.form()
             self.model_id = form.get("model_id", "").strip()
 
-            self.color_value = self.safe_int(form.get("color_value", 0), -100, 100)
-            self.brightness_value = self.safe_int(form.get("brightness_value", 0), -100, 100)
-            self.contrast_value = self.safe_int(form.get("contrast_value", 0), -100, 100)
-            self.sharpness_value = self.safe_int(form.get("sharpness_value", 0), -100, 100)
+            self.color_value = int(form.get("color_value", 0))
+            self.brightness_value = int(form.get("brightness_value", 0))
+            self.contrast_value = int(form.get("contrast_value", 0))
+            self.sharpness_value = int(form.get("sharpness_value", 0))
 
         except Exception:
             self.errors.append("An error occurred while processing the form. Please try again.")
-
-    def safe_int(self, value, min_value=-100, max_value=100, default=0) -> int:
-        """
-        Attempts to convert a given value to an integer, ensuring it falls within a specified range.
-
-        Parameters
-        ----------
-        value : Any
-            The value to be converted to an integer.
-        min_value : int, optional
-            The minimum allowed value (default is -100).
-        max_value : int, optional
-            The maximum allowed value (default is 100).
-        default : int, optional
-            The value to return if the conversion fails (default is 0).
-
-        Returns
-        -------
-        int
-            The converted integer if successful, otherwise the default value.
-        """
-        try:
-            value = int(value)
-            return max(min_value, min(value, max_value))  # Ensure within range
-        except (ValueError, TypeError):
-            return default
 
     def is_valid(self) -> bool:
         """

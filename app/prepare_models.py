@@ -1,7 +1,7 @@
 import importlib
 import logging
 
-from .config import Configuration
+from config import Configuration
 
 conf = Configuration()
 

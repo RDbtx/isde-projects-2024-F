@@ -3,7 +3,7 @@ from fastapi import FastAPI, Request, UploadFile, File, BackgroundTasks, HTTPExc
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from starlette.responses import JSONResponse
+
 
 from app.config import Configuration
 from app.forms.classification_form import EditedImageForm, UploadedImageForm
