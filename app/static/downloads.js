@@ -9,6 +9,8 @@
  */
 function downloadPLOT(elementID) {
     var canvas = document.getElementById(elementID);
+    var immagine = document.getElementById('selectedImage')
+    var image_name = immagine.getAttribute('alt')
     if (!canvas) {
         alert("ATTENTION: No plot has been found!");
         return;
@@ -17,7 +19,7 @@ function downloadPLOT(elementID) {
     var image = canvas.toDataURL("image/jpeg");
     var imageLink = document.createElement("a");
     imageLink.href = image;
-    imageLink.download = `${elementID}_data.jpeg`;
+    imageLink.download = `${image_name}_${elementID}_data.jpeg`;
     imageLink.click();
 }
 
@@ -34,6 +36,8 @@ function downloadPLOT(elementID) {
 function downloadClassificationJSON(elementID) {
     var scripts = document.getElementById('makeGraph');
     var classification_scores = scripts.getAttribute('classification_scores');
+    var immagine = document.getElementById('selectedImage')
+    var image_name = immagine.getAttribute('alt')
 
     if (!classification_scores) {
         alert("ATTENTION: No graph data available!");
@@ -47,7 +51,7 @@ function downloadClassificationJSON(elementID) {
 
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
-    a.download = `${elementID}_data.json`;
+    a.download = `${image_name}_${elementID}_data.json`;
     a.click();
 }
 
@@ -61,6 +65,8 @@ function downloadClassificationJSON(elementID) {
  * @throws {Error} If no histogram data is available, an alert is displayed.
  */
 function downloadHistogramJSON() {
+    var immagine = document.getElementById('selectedImage')
+    var image_name = immagine.getAttribute('alt')
     const histogramData = computeHistogram();
 
     if (!histogramData) {
@@ -79,7 +85,7 @@ function downloadHistogramJSON() {
 
     const a = document.createElement("a");
     a.href = url;
-    a.download = "histogram_data.json";
+    a.download = `${image_name}_histogram_data.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
